@@ -128,8 +128,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const result = await authService.signup(email, password, full_name);
       
       if (result.success) {
-        // After successful signup, automatically login
-        return await login(email, password);
+        dispatch({ type: 'CLEAR_ERROR' });
+        return { success: true };
       } else {
         const errorMessage = result.error || 'Signup failed. Please try again.';
         dispatch({

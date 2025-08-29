@@ -76,10 +76,10 @@ const Signup = () => {
     
     if (result.success) {
       toast({
-        title: "Welcome to Business Brain!",
-        description: "Account created successfully. You're now logged in!",
+        title: "Signup Successful!",
+        description: "Account created successfully. Please login with your credentials.",
       });
-      // Navigation will be handled by the useEffect above
+      navigate("/login");
     }
     // Error handling is done in the useEffect above
   };

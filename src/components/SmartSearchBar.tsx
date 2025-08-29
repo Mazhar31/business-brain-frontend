@@ -34,32 +34,7 @@ const SmartSearchBar = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Mock suggestions - in real app, these would come from API
-  const mockSuggestions: SearchSuggestion[] = [
-    {
-      id: "1",
-      type: "insight",
-      title: "What did Sarah say about Q4 pricing?",
-      subtitle: "From Q4 Strategy Meeting",
-    },
-    {
-      id: "2", 
-      type: "action",
-      title: "Upload new recording",
-      subtitle: "Quick action",
-    },
-    {
-      id: "3",
-      type: "document",
-      title: "Customer Interview - TechCorp",
-      subtitle: "Contains pricing objections",
-    },
-    {
-      id: "4",
-      type: "conversation",
-      title: "Previous chat about competitive advantage",
-      subtitle: "From yesterday",
-    }
-  ];
+  const mockSuggestions: SearchSuggestion[] = [];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
