@@ -33,6 +33,7 @@ type AuthAction =
   | { type: 'LOGIN_START' }
   | { type: 'LOGIN_SUCCESS'; payload: { user: User; token: string } }
   | { type: 'LOGIN_FAILURE'; payload: string }
+  | { type: 'SIGNUP_SUCCESS' }
   | { type: 'LOGOUT' }
   | { type: 'CLEAR_ERROR' };
 
@@ -67,6 +68,8 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         error: null,
         loading: false
       };
+    case 'SIGNUP_SUCCESS':
+      return { ...state, loading: false, error: null };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
     default:
@@ -128,7 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const result = await authService.signup(email, password, full_name);
       
       if (result.success) {
-        dispatch({ type: 'CLEAR_ERROR' });
+        dispatch({ type: 'SIGNUP_SUCCESS' });
         return { success: true };
       } else {
         const errorMessage = result.error || 'Signup failed. Please try again.';
