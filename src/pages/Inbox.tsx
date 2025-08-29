@@ -423,7 +423,7 @@ const Inbox = () => {
               onClick={async () => {
                 setSyncLoading(true);
                 try {
-                  const syncResult = await gmailService.syncEmails(50);
+                  const syncResult = await gmailService.syncEmails(10);
                   if (syncResult.success) {
                     toast({ title: "Emails synced", description: syncResult.data?.message });
                     await loadEmails();
@@ -769,7 +769,7 @@ const Inbox = () => {
                   onClick={async () => {
                     setSyncLoading(true);
                     try {
-                      const syncResult = await gmailService.syncEmails(50);
+                      const syncResult = await gmailService.syncEmails(10);
                       if (syncResult.success) {
                         toast({ title: "Emails synced", description: syncResult.data?.message });
                         await loadEmails();
