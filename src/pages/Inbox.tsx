@@ -53,6 +53,7 @@ const Inbox = () => {
   // State management
   const [selectedEmail, setSelectedEmail] = useState<EmailDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const [syncLoading, setSyncLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -420,6 +421,7 @@ const Inbox = () => {
             </Button> */}
             <Button 
               onClick={async () => {
+                setSyncLoading(true);
                 try {
                   const syncResult = await gmailService.syncEmails(50);
                   if (syncResult.success) {
@@ -428,12 +430,14 @@ const Inbox = () => {
                   }
                 } catch (error: any) {
                   toast({ title: "Sync failed", description: error.message, variant: "destructive" });
+                } finally {
+                  setSyncLoading(false);
                 }
               }}
-              disabled={loading}
+              disabled={syncLoading || loading}
             >
-              <Mail className="w-4 h-4 mr-2" />
-              Sync Emails
+              <Mail className={`w-4 h-4 mr-2 ${syncLoading ? 'animate-spin' : ''}`} />
+              {syncLoading ? 'Syncing...' : 'Sync Emails'}
             </Button>
             <Button variant="outline" onClick={handleDisconnectGmail}>
               <Settings className="w-4 h-4 mr-2" />
@@ -763,6 +767,7 @@ const Inbox = () => {
                 </Button> */}
                 <Button 
                   onClick={async () => {
+                    setSyncLoading(true);
                     try {
                       const syncResult = await gmailService.syncEmails(50);
                       if (syncResult.success) {
@@ -771,12 +776,14 @@ const Inbox = () => {
                       }
                     } catch (error: any) {
                       toast({ title: "Sync failed", description: error.message, variant: "destructive" });
+                    } finally {
+                      setSyncLoading(false);
                     }
                   }}
-                  disabled={loading}
+                  disabled={syncLoading || loading}
                 >
-                  <Mail className="w-4 h-4 mr-2" />
-                  Sync Emails
+                  <Mail className={`w-4 h-4 mr-2 ${syncLoading ? 'animate-spin' : ''}`} />
+                  {syncLoading ? 'Syncing...' : 'Sync Emails'}
                 </Button>
                 <Button variant="outline" onClick={handleDisconnectGmail}>
                   <Settings className="w-4 h-4 mr-2" />
